@@ -49,6 +49,8 @@ Guidelines:
 
 - Back: "Photosynthesis is the process by which green plants use sunlight to synthesize nutrients from carbon dioxide and water.
 
+Only generate 10 flashcards.
+
 Return in the following JSON format
 {
     "flashcards":[

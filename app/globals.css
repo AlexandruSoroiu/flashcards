@@ -3,3 +3,12 @@
   padding: 0;
   margin: 0;
 }
+
+.MuiContainer-root {
+  padding: 0 !important;
+}
+
+.MuiContainer-root > div {
+  margin-left: 24px !important;
+  margin-right: 24px !important;
+}

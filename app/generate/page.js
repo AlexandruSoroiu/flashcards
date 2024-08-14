@@ -1,10 +1,11 @@
 'use client'
 
 import { useUser } from '@clerk/nextjs'
-import { Box, Container, Paper, TextField, Typography, Button, Grid, Card, CardActionArea, CardContent } from '@mui/material'
-import { collection, writeBatch } from 'firebase/firestore'
+import { Box, Container, Paper, DialogActions, DialogContentText, DialogContent, TextField, Typography, Button, Grid, Card, CardActionArea, CardContent, Dialog, DialogTitle } from '@mui/material'
+import { collection, writeBatch, setDoc, doc, getDoc } from 'firebase/firestore'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { db } from '@/firebase'
 
 export default function Generate() {
     const { isLoaded, isSignedIn, user } = useUser()
@@ -21,7 +22,7 @@ export default function Generate() {
             body: text,
         })
             .then((res) => res.json())
-            .then(data > setFlashcards(data))
+            .then((data) => setFlashcards(data))
     }
 
     const handleCardClick = (id) => {
@@ -32,10 +33,10 @@ export default function Generate() {
     }
 
     const handleOpen = () => {
-        setOpenI(true)
+        setOpen(true)
     }
     const handleClose = () => {
-        setOpenI(false)
+        setOpen(false)
     }
 
     const saveFlashcard = async () => {
@@ -53,18 +54,18 @@ export default function Generate() {
             if (collections.find((f) => f.name === name)) {
                 alert('Flashcard collection with the same name already exists.')
                 return
-            }
-            else {
+            } else {
                 collections.push({ name })
                 batch.set(userDocRef, { flashcards: collections }, { merge: true })
             }
-        }
-        else {
+        } else {
             batch.set(userDocRef, { flashcards: [{ name }] })
         }
 
         const colRef = collection(userDocRef, name)
+        // alert("flash")
         flashcards.forEach((flashcard) => {
+            // alert("flashcard")
             const cardDocRef = doc(colRef)
             batch.set(cardDocRef, flashcard)
         })
@@ -168,9 +169,36 @@ export default function Generate() {
                         </Grid>
                     ))}
                 </Grid>
-                <Box></Box>
+                <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+                    <Button variant='contained' color='secondary' onClick={handleOpen}>
+                        Save
+                    </Button>
+                </Box>
             </Box>
         )}
+
+        <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>Save Flashcards</DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    Please enter a name for your flashcards collection
+                </DialogContentText>
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    label="Collection Name"
+                    type="text"
+                    fullWidth
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    variant="outlined"
+                />
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={saveFlashcard}>Save</Button>
+            </DialogActions>
+        </Dialog>
     </Container>
     )
 }

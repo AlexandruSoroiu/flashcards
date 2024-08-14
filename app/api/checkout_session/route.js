@@ -29,9 +29,9 @@ export async function POST(req) {
                 price_data: {
                     currency: 'usd',
                     product_data: {
-                        name: 'Pro Subscription',
+                        name: req.headers.get('plan') == 'pro' ? 'Pro Subscription' : 'Basic Subscription',
                     },
-                    unit_amount: formatAmountForStripe(10),
+                    unit_amount: formatAmountForStripe(req.headers.get('plan') == 'pro' ? 10 : 5),
                     recurring: {
                         interval: 'month',
                         interval_count: 1,

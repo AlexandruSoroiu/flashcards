@@ -4,14 +4,19 @@ import getStripe from '@/utils/get-stripe'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import { AppBar, Box, Button, Container, Grid, Toolbar, Typography } from '@mui/material'
 import Head from 'next/head'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
-  const handleSubmit = async () => {
+  const router = useRouter()
+
+  const handleSubmitPro = async () => {
     const checkoutSession = await fetch('/api/checkout_session', {
       method: 'POST',
       headers: {
         origin: 'https://localhost:3000',
+        plan: "pro",
       },
+      
     })
 
     const checkoutSessionJson = await checkoutSession.json()
@@ -22,7 +27,7 @@ export default function Home() {
     }
 
     const stripe = await getStripe()
-    const {error} = await stripe.redirectToCheckout({
+    const { error } = await stripe.redirectToCheckout({
       sessionId: checkoutSessionJson.id,
     })
 
@@ -30,6 +35,40 @@ export default function Home() {
       console.warn(error.message)
     }
   }
+
+
+  const handleSubmitBasic = async () => {
+    const checkoutSession = await fetch('/api/checkout_session', {
+      method: 'POST',
+      headers: {
+        origin: 'https://localhost:3000',
+        plan: "basic",
+      },
+      
+    })
+
+    const checkoutSessionJson = await checkoutSession.json()
+
+    if (checkoutSession.statusCode === 500) {
+      console.error(checkoutSession.message)
+      return
+    }
+
+    const stripe = await getStripe()
+    const { error } = await stripe.redirectToCheckout({
+      sessionId: checkoutSessionJson.id,
+    })
+
+    if (error) {
+      console.warn(error.message)
+    }
+  }
+
+
+  const getStarted = async () => {
+    router.push('/generate')
+  }
+
   return (
     <Container maxWidth="100vw">
       <Head>
@@ -67,7 +106,7 @@ export default function Home() {
           {''}
           The easiest way to make flashcards from your text!
         </Typography>
-        <Button variant="contained" color="primary" sx={{ mt: 2 }}>
+        <Button onClick={getStarted} variant="contained" color="primary" sx={{ mt: 2 }}>
           Get Started
         </Button>
       </Box>
@@ -114,7 +153,7 @@ export default function Home() {
                 {''}
                 Access to basic flashcard features and limited storage.
               </Typography>
-              <Button variant="contained" color="primary" sx={{ mt: 2 }}>Choose Basic</Button>
+              <Button variant="contained" color="primary" sx={{ mt: 2 }} onClick={handleSubmitBasic}>Choose Basic</Button>
             </Box>
           </Grid>
           <Grid item xs={12} md={6}>
@@ -131,7 +170,7 @@ export default function Home() {
                 {''}
                 Unlimited flashcards and storage, with priority support.
               </Typography>
-              <Button variant="contained" color="primary" sx={{ mt: 2 }} onClick={handleSubmit}>Choose Pro</Button>
+              <Button variant="contained" color="primary" sx={{ mt: 2 }} onClick={handleSubmitPro}>Choose Pro</Button>
             </Box>
           </Grid>
         </Grid>

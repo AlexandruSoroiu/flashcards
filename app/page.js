@@ -13,7 +13,7 @@ export default function Home() {
     const checkoutSession = await fetch('/api/checkout_session', {
       method: 'POST',
       headers: {
-        origin: 'https://localhost:3000',
+        origin: 'https://flashcards-phi-eight.vercel.app/',
         plan: "pro",
       },
       

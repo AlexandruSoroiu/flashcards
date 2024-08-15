@@ -17,12 +17,14 @@ export default function Generate() {
     const router = useRouter()
 
     const handleSubmit = async () => {
+        document.querySelector("#loader-parent").style.display = "flex"
         fetch('api/generate', {
             method: 'POST',
             body: text,
         })
             .then((res) => res.json())
             .then((data) => setFlashcards(data))
+            .then(() => document.querySelector("#loader-parent").style.display = "none")
     }
 
     const handleCardClick = (id) => {
@@ -63,9 +65,7 @@ export default function Generate() {
         }
 
         const colRef = collection(userDocRef, name)
-        // alert("flash")
         flashcards.forEach((flashcard) => {
-            // alert("flashcard")
             const cardDocRef = doc(colRef)
             batch.set(cardDocRef, flashcard)
         })
@@ -84,9 +84,10 @@ export default function Generate() {
             alignItems: 'center'
         }}
         >
-            <Typography variant="h4">Generate Flashcards</Typography>
+            <Typography fontFamily="Plantagenet Cherokee" variant="h4" id="generate-flashcards">Generate Flashcards</Typography>
             <Paper sx={{ p: 4, width: '100%' }}>
                 <TextField
+                    fontFamily="Big Caslon"
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     label="Enter text"
@@ -100,17 +101,19 @@ export default function Generate() {
                 />
                 <Button
                     variant="contained"
-                    color="primary"
+                    color="secondary"
                     onClick={handleSubmit}
                     fullWidth
+                    fontFamily="Big Caslon"
                 >Submit
                 </Button>
             </Paper>
         </Box>
+        <div id="loader-parent"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>
 
         {flashcards.length > 0 && (
             <Box sx={{ mt: 4 }}>
-                <Typography variant="h5">Flashcards Preview</Typography>
+                <Typography textAlign="center" fontFamily="Plantagenet Cherokee" variant="h5">Flashcards Preview</Typography>
                 <Grid container spacing={3}>
                     {flashcards.map((flashcard, index) => (
                         <Grid item xs={12} sm={6} md={4} key={index}>
@@ -119,16 +122,18 @@ export default function Generate() {
                                     handleCardClick(index)
                                 }}
                                 >
-                                    <CardContent>
+                                    <CardContent sx={{ '&':{background: 'ghostwhite'}}}>
                                         <Box
                                             sx={{
                                                 perspective: '1000px',
                                                 '& > div': {
+                                                    background: 'rgb(156, 39, 176)',
+                                                    color: 'white',
                                                     transition: 'transform 0.6s',
                                                     transformStyle: 'preserve-3d',
                                                     position: 'relative',
                                                     width: '100%',
-                                                    height: '200px',
+                                                    height: '250px',
                                                     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
                                                     transform: flipped[index]
                                                         ? 'rotateY(180deg)'
@@ -152,12 +157,12 @@ export default function Generate() {
                                         >
                                             <div>
                                                 <div>
-                                                    <Typography variant="h5" component="div">
+                                                    <Typography fontFamily="Big Caslon" variant="h5" component="div">
                                                         {flashcard.front}
                                                     </Typography>
                                                 </div>
                                                 <div>
-                                                    <Typography variant="h5" component="div">
+                                                    <Typography fontFamily="Big Caslon" variant="h5" component="div">
                                                         {flashcard.back}
                                                     </Typography>
                                                 </div>
@@ -170,7 +175,7 @@ export default function Generate() {
                     ))}
                 </Grid>
                 <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
-                    <Button variant='contained' color='secondary' onClick={handleOpen}>
+                    <Button fontFamily="Big Caslon" variant='contained' color='secondary' onClick={handleOpen}>
                         Save
                     </Button>
                 </Box>
@@ -178,9 +183,9 @@ export default function Generate() {
         )}
 
         <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Save Flashcards</DialogTitle>
+            <DialogTitle fontFamily="Big Caslon">Save Flashcards</DialogTitle>
             <DialogContent>
-                <DialogContentText>
+                <DialogContentText fontFamily="Big Caslon">
                     Please enter a name for your flashcards collection
                 </DialogContentText>
                 <TextField
@@ -195,8 +200,8 @@ export default function Generate() {
                 />
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
-                <Button onClick={saveFlashcard}>Save</Button>
+                <Button fontFamily="Big Caslon" onClick={handleClose}>Cancel</Button>
+                <Button fontFamily="Big Caslon" onClick={saveFlashcard}>Save</Button>
             </DialogActions>
         </Dialog>
     </Container>

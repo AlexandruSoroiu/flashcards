@@ -70,22 +70,22 @@ export default function Home() {
   }
 
   return (
-    <Container maxWidth="100vw">
+    <Container maxWidth="100vw" id="home-root">
       <Head>
-        <title>Flashcard SaaS</title>
+        <title fontFamily="Plantagenet Cherokee">Flashcard SaaS</title>
         <meta name="description" content="Create flashcard from your text" />
       </Head>
-      <AppBar position="static">
+      <AppBar color="secondary" position="static">
         <Toolbar>
           <Typography variant="h6" style={{ flexGrow: 1 }}>
             Flashcard SaaS
           </Typography>
           <SignedOut>
-            <Button color="inherit" href="/sign-in">
+            <Button fontFamily="Big Caslon" color="inherit" href="/sign-in">
               {''}
               Log In
             </Button>
-            <Button color="inherit" href="sign-up">
+            <Button fontFamily="Big Caslon" color="inherit" href="sign-up">
               Sign Up
             </Button>
           </SignedOut>
@@ -101,35 +101,35 @@ export default function Home() {
           my: 4,
         }}
       >
-        <Typography variant="h2" gutterBottom>Welcome to Flashcard SaaS!</Typography>
-        <Typography variant="h5" gutterBottom>
+        <Typography fontFamily="Big Caslon" variant="h2" gutterBottom>Welcome to Flashcard SaaS!</Typography>
+        <Typography fontFamily="Big Caslon" variant="h5" gutterBottom>
           {''}
           The easiest way to make flashcards from your text!
         </Typography>
-        <Button onClick={getStarted} variant="contained" color="primary" sx={{ mt: 2 }}>
+        <Button fontFamily="Big Caslon" onClick={getStarted} variant="contained" color="secondary" sx={{ mt: 2 }}>
           Get Started
         </Button>
       </Box>
       <Box sx={{ my: 6 }}>
-        <Typography textAlign="center" variant="h4" gutterBottom>Features</Typography>
+        <Typography fontFamily="Plantagenet Cherokee" textAlign="center" variant="h4" gutterBottom>Features</Typography>
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
-            <Typography variant="h6" gutterBottom>Easy Text Input</Typography>
-            <Typography>
+            <Typography fontFamily="Plantagenet Cherokee" variant="h6" gutterBottom>Easy Text Input</Typography>
+            <Typography fontFamily="Big Caslon">
               {''}
               Simply input your text and let our software do the rest. Creating flashcards has never been easier.
             </Typography>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Typography variant="h6" gutterBottom>Smart Flashcards</Typography>
-            <Typography>
+            <Typography fontFamily="Plantagenet Cherokee" variant="h6" gutterBottom>Smart Flashcards</Typography>
+            <Typography fontFamily="Big Caslon">
               {''}
               Our AI intelligently breaks down your text into concise flashcards, perfect for studying.
             </Typography>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Typography variant="h6" gutterBottom>Accessible Anywhere</Typography>
-            <Typography>
+            <Typography fontFamily="Plantagenet Cherokee" variant="h6" gutterBottom>Accessible Anywhere</Typography>
+            <Typography fontFamily="Big Caslon">
               {''}
               Access your flashcards from any device, at any time. Study on the go with ease.
             </Typography>
@@ -137,40 +137,40 @@ export default function Home() {
         </Grid>
       </Box>
       <Box sx={{ my: 6, textAlign: 'center' }}>
-        <Typography variant="h4" gutterBottom>Pricing</Typography>
+        <Typography fontFamily="Plantagenet Cherokee" variant="h4" gutterBottom>Pricing</Typography>
         <Grid container spacing={4}>
           <Grid item xs={12} md={6}>
             <Box sx={{
               p: 3,
-              border: '1px solid',
+              border: '5px ridge',
               borderColor: 'grey.300',
               borderRadius: 2,
             }}
             >
-              <Typography variant="h5" gutterBottom>Basic</Typography>
-              <Typography variant="h6" gutterBottom>$5 / month</Typography>
-              <Typography>
+              <Typography fontFamily="Plantagenet Cherokee" variant="h5" gutterBottom>Basic</Typography>
+              <Typography fontFamily="Plantagenet Cherokee" variant="h6" gutterBottom>$5 / month</Typography>
+              <Typography fontFamily="Big Caslon">
                 {''}
                 Access to basic flashcard features and limited storage.
               </Typography>
-              <Button variant="contained" color="primary" sx={{ mt: 2 }} onClick={handleSubmitBasic}>Choose Basic</Button>
+              <Button fontFamily="Big Caslon" variant="contained" color="secondary" sx={{ mt: 2 }} onClick={handleSubmitBasic}>Choose Basic</Button>
             </Box>
           </Grid>
           <Grid item xs={12} md={6}>
             <Box sx={{
               p: 3,
-              border: '1px solid',
+              border: '5px ridge',
               borderColor: 'grey.300',
               borderRadius: 2,
             }}
             >
-              <Typography variant="h5" gutterBottom>Pro</Typography>
-              <Typography variant="h6" gutterBottom>$10 / month</Typography>
-              <Typography>
+              <Typography fontFamily="Plantagenet Cherokee" variant="h5" gutterBottom>Pro</Typography>
+              <Typography fontFamily="Plantagenet Cherokee" variant="h6" gutterBottom>$10 / month</Typography>
+              <Typography fontFamily="Big Caslon">
                 {''}
                 Unlimited flashcards and storage, with priority support.
               </Typography>
-              <Button variant="contained" color="primary" sx={{ mt: 2 }} onClick={handleSubmitPro}>Choose Pro</Button>
+              <Button fontFamily="Big Caslon" variant="contained" color="secondary" sx={{ mt: 2 }} onClick={handleSubmitPro}>Choose Pro</Button>
             </Box>
           </Grid>
         </Grid>

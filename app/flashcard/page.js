@@ -54,11 +54,13 @@ export default function Flashcard() {
                                 handleCardClick(index)
                             }}
                             >
-                                <CardContent>
+                                <CardContent sx={{ '&':{background: 'ghostwhite'}}}>
                                     <Box
                                         sx={{
                                             perspective: '1000px',
                                             '& > div': {
+                                                background: 'rgb(156, 39, 176)',
+                                                color: 'white',
                                                 transition: 'transform 0.6s',
                                                 transformStyle: 'preserve-3d',
                                                 position: 'relative',

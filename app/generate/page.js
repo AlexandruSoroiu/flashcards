@@ -25,6 +25,16 @@ export default function Generate() {
             .then((res) => res.json())
             .then((data) => setFlashcards(data))
             .then(() => document.querySelector("#loader-parent").style.display = "none")
+            .then(() => {
+                window.dispatchEvent(new Event('resize'))
+                let elements = document.querySelectorAll(".MuiGrid-root")
+                Array.from(elements).forEach(el => {
+                    let dv = el.style.display
+                    el.style.display = "none"
+                    el.offsetHeight
+                    el.style.display = dv
+                })
+            })
     }
 
     const handleCardClick = (id) => {
@@ -164,12 +174,12 @@ export default function Generate() {
                                         >
                                             <div>
                                                 <div>
-                                                    <Typography lineHeight="1" fontFamily="Big Caslon" variant="h5" component="div">
+                                                    <Typography lineHeight="0.9" fontFamily="Big Caslon" variant="h5" component="div">
                                                         {flashcard.front}
                                                     </Typography>
                                                 </div>
                                                 <div>
-                                                    <Typography lineHeight="1" fontFamily="Big Caslon" variant="h6" component="div">
+                                                    <Typography lineHeight="0.9" fontFamily="Big Caslon" variant="h6" component="div">
                                                         {flashcard.back}
                                                     </Typography>
                                                 </div>

@@ -157,12 +157,12 @@ export default function Generate() {
                                         >
                                             <div>
                                                 <div>
-                                                    <Typography fontFamily="Big Caslon" variant="h5" component="div">
+                                                    <Typography lineHeight="1" fontFamily="Big Caslon" variant="h5" component="div">
                                                         {flashcard.front}
                                                     </Typography>
                                                 </div>
                                                 <div>
-                                                    <Typography fontFamily="Big Caslon" variant="h5" component="div">
+                                                    <Typography lineHeight="1" fontFamily="Big Caslon" variant="h6" component="div">
                                                         {flashcard.back}
                                                     </Typography>
                                                 </div>

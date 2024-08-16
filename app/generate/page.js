@@ -40,6 +40,12 @@ export default function Generate() {
     const handleClose = () => {
         setOpen(false)
     }
+    const handleEnter = (ev) => {
+        if (ev.key == "Enter") {
+            ev.preventDefault()
+            handleSubmit()
+        }
+    }
 
     const saveFlashcard = async () => {
         if (!name) {
@@ -90,6 +96,7 @@ export default function Generate() {
                     fontFamily="Big Caslon"
                     value={text}
                     onChange={(e) => setText(e.target.value)}
+                    onKeyDown={(e) => { handleEnter(e) }}
                     label="Enter text"
                     fullWidth
                     multiline
@@ -109,7 +116,7 @@ export default function Generate() {
                 </Button>
             </Paper>
         </Box>
-        <div id="loader-parent"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>
+        <div id="loader-parent"><div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>
 
         {flashcards.length > 0 && (
             <Box sx={{ mt: 4 }}>
@@ -122,7 +129,7 @@ export default function Generate() {
                                     handleCardClick(index)
                                 }}
                                 >
-                                    <CardContent sx={{ '&':{background: 'ghostwhite'}}}>
+                                    <CardContent sx={{ '&': { background: 'ghostwhite' } }}>
                                         <Box
                                             sx={{
                                                 perspective: '1000px',

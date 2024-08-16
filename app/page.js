@@ -1,11 +1,16 @@
 'use client'
+import React from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import getStripe from '@/utils/get-stripe'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import { AppBar, Box, Button, Container, Grid, Toolbar, Typography } from '@mui/material'
 import Head from 'next/head'
+import Link from 'next/link'
 
 export default function Home() {
+  const router = useRouter()
+
   const handleSubmit = async () => {
     const checkoutSession = await fetch('/api/checkout_session', {
       method: 'POST',
@@ -22,7 +27,7 @@ export default function Home() {
     }
 
     const stripe = await getStripe()
-    const {error} = await stripe.redirectToCheckout({
+    const { error } = await stripe.redirectToCheckout({
       sessionId: checkoutSessionJson.id,
     })
 
@@ -30,11 +35,16 @@ export default function Home() {
       console.warn(error.message)
     }
   }
+
+  const handleGetStartedClick = () => {
+    router.push('/generate')
+  }
+
   return (
     <Container maxWidth="100vw">
       <Head>
         <title>Flashcard SaaS</title>
-        <meta name="description" content="Create flashcard from your text" />
+        <meta name="description" content="Create flashcards from your text" />
       </Head>
       <AppBar position="static">
         <Toolbar>
@@ -67,7 +77,12 @@ export default function Home() {
           {''}
           The easiest way to make flashcards from your text!
         </Typography>
-        <Button variant="contained" color="primary" sx={{ mt: 2 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ mt: 2 }}
+          onClick={handleGetStartedClick}
+        >
           Get Started
         </Button>
       </Box>
@@ -139,3 +154,4 @@ export default function Home() {
     </Container>
   )
 }
+
